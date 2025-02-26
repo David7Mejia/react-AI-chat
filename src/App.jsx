@@ -1,10 +1,13 @@
 import { useState } from "react";
 import styles from "./App.module.css";
-import  Chat  from "./components/Chat/Chat";
+import Chat from "./components/Chat/Chat";
 import Controls from "./components/Controls/Controls";
 function App() {
-  const [messages, setMessage] = useState(Messages);
+  const [messages, setMessage] = useState([]);
 
+  const handleContentSend = content => {
+    setMessage(prevMessages => [...prevMessages, { role: "user", content }]);
+  };
   return (
     <div className={styles.App}>
       <header className={styles.Header}>
@@ -14,7 +17,7 @@ function App() {
       <div className={styles.ChatContainer}>
         <Chat messages={messages} />
       </div>
-      <Controls />
+      <Controls onSend={handleContentSend} />
     </div>
   );
 }
