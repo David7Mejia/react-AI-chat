@@ -1,12 +1,26 @@
 import { useState } from "react";
+
 import styles from "./App.module.css";
 import Chat from "./components/Chat/Chat";
 import Controls from "./components/Controls/Controls";
-function App() {
+
+
+const App = () => {
   const [messages, setMessage] = useState([]);
 
-  const handleContentSend = content => {
-    setMessage(prevMessages => [...prevMessages, { role: "user", content }]);
+  const addMessage = message => {
+    setMessage(prevMessages => [...prevMessages, message]);
+  };
+
+  const handleContentSend = async content => {
+    addMessage({ role: "user", content });
+
+    try {
+      addMessage({ role: "assistant", content: res.response.text() });
+    } catch (err) {
+      console.log(err);
+      addMessage({ content: "Sorry, I couldn't process your request. Please try again.", role: "system" });
+    }
   };
   return (
     <div className={styles.App}>
@@ -20,7 +34,7 @@ function App() {
       <Controls onSend={handleContentSend} />
     </div>
   );
-}
+};
 
 const Messages = [
   {
