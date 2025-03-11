@@ -3,10 +3,12 @@ import { Assistant } from "./assistants/googleai";
 import styles from "./App.module.css";
 import Chat from "./components/Chat/Chat";
 import Controls from "./components/Controls/Controls";
+import Loader from "./components/Loader/Loader";
 
 const App = () => {
   const assistant = new Assistant();
   const [messages, setMessage] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const addMessage = message => {
     setMessage(prevMessages => [...prevMessages, message]);
@@ -14,16 +16,20 @@ const App = () => {
 
   const handleContentSend = async content => {
     addMessage({ role: "user", content });
+    setIsLoading(true);
     try {
       const result = await assistant.chat(content);
       addMessage({ role: "assistant", content: result });
     } catch (err) {
       console.log(err);
       addMessage({ content: "Sorry, I couldn't process your request. Please try again.", role: "system" });
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
     <div className={styles.App}>
+      {isLoading && <Loader />}
       <header className={styles.Header}>
         <img src="/neural-network.png" alt="logo" className={styles.Logo} />
         <h2 className={styles.Title}>AI Chatbot</h2>
