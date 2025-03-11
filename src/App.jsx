@@ -1,11 +1,11 @@
 import { useState } from "react";
-
+import { Assistant } from "./assistants/googleai";
 import styles from "./App.module.css";
 import Chat from "./components/Chat/Chat";
 import Controls from "./components/Controls/Controls";
 
-
 const App = () => {
+  const assistant = new Assistant();
   const [messages, setMessage] = useState([]);
 
   const addMessage = message => {
@@ -14,9 +14,9 @@ const App = () => {
 
   const handleContentSend = async content => {
     addMessage({ role: "user", content });
-
     try {
-      addMessage({ role: "assistant", content: res.response.text() });
+      const result = await assistant.chat(content);
+      addMessage({ role: "assistant", content: result });
     } catch (err) {
       console.log(err);
       addMessage({ content: "Sorry, I couldn't process your request. Please try again.", role: "system" });

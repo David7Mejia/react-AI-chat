@@ -11,7 +11,7 @@ export class Assistant {
 
   async chat(content) {
     try {
-      const res = await chat.sendMessage(content);
+      const res = await this.#chat.sendMessage(content);
       return res.response.text();
     } catch (error) {
       throw error;
