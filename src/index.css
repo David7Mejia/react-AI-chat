@@ -5,8 +5,8 @@
 
   /* width: 50vw; */
   color-scheme: light dark;
-  color: #0d0d0d;
-  background-color: #f3f3f3;
+  color: light-dark (#f3f3f3, #0d0d0d);
+  background-color: light-dark(#f3f3f3, #0d0d0d);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;

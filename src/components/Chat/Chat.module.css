@@ -29,16 +29,16 @@
   border-radius: 1rem 0.5rem;
   /* background: #32c0c1; */
   /* background: #263b42; */
-  background: transparent;
+  background: light-dark(#f3f3f3, transparent);
   /* color: #fff; */
-  color: #444444;
-  border: 1px black solid;
+  color: light-dark (#444444, #f3f3f3);
+  border: 1px light-dark(#f3f3f3, white) solid;
   &[data-role="user"] {
     border-radius: 1rem;
     align-self: flex-end;
-    background: #f3f3f3;
+    background: light-dark(#f3f3f3, #1b1b1b);
     border-radius: 0.5rem 1rem;
     border: none;
-    color: #4c4c4c;
+    color: light-dark(#4c4c4c, #f3f3f3);
   }
 }

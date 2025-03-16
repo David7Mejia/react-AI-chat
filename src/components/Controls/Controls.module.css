@@ -2,9 +2,14 @@
   background: url("../../../public/send_google.svg") no-repeat center;
   width: 100%;
   height: 100%;
-  background-color: #444444;
+  background-color: light-dark(#0d0d0d, rgb(55, 152, 255));
   padding: 16px;
   border-radius: 16px;
+
+  &:hover {
+    background-color: light-dark(#0d0d0d, rgba(55, 255, 188, 0.581));
+  }
+  transition: all 0.3s ease-in-out;
 }
 
 .Controls {
@@ -19,7 +24,8 @@
   padding: 0.5rem 1rem;
   line-height: 0;
   border-radius: 1rem;
-  background: white;
+  background: light-dark(white, transparent);
+  border: 1px solid light-dark(black, white);
 }
 
 .TextArea {
@@ -29,21 +35,23 @@
   outline: none;
   resize: none;
   background: transparent;
-  color: black;
+  color: light-dark(black, #f3f3f3);
 }
 .Button {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 2rem;
-  height: 2rem;
+  width: 51px;
+  height: 51px;
   border: none;
-  border-radius: 50%;
-  background: #f3f3f3;
+  border-radius: 16px;
+  /* background: #f3f3f3; */
   outline: none;
   cursor: pointer;
+  padding: 0;
 }
 
-.TextArea:disabled,.Button:disabled {
+.TextArea:disabled,
+.Button:disabled {
   opacity: 0.35;
 }
