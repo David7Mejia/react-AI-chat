@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styles from "./Controls.module.css";
 import TextareaAutosize from "react-textarea-autosize";
 
 const Controls = ({ isDisabled = false, onSend }) => {
   const [content, setContent] = useState("");
-
+  const textAreaRef = useRef(null);
   const handleContentChange = e => {
-    setContent(e.target.value);
+    setContent(e.target?.value);
   };
 
   const handleContentSend = () => {
@@ -30,6 +30,12 @@ const Controls = ({ isDisabled = false, onSend }) => {
     }
   };
 
+  useEffect(() => {
+    if (!isDisabled) {
+      textAreaRef.current.focus();
+    }
+  }, [isDisabled]);
+
   return (
     <div className={styles.Controls}>
       <div className={styles.TextAreaContainer}>
@@ -42,6 +48,7 @@ const Controls = ({ isDisabled = false, onSend }) => {
           onKeyDown={handleKeyDown}
           minRows={2}
           maxRows={20}
+          ref={textAreaRef}
         />
       </div>
       <button disabled={isDisabled} className={styles.Button} onClick={handleContentSend}>
