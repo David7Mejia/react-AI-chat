@@ -17,7 +17,7 @@
   height: fit-content;
 } */
 .Group:nth-last-of-type(2) {
-  /* min-height: calc(100% - 8px); */
+  min-height: calc(100% - 8px);
   height: fit-content;
 }
 
