@@ -10,7 +10,7 @@ const WELCOME_MESSAGE_GROUP = [
   },
 ];
 
-const Chat = ({ messages }) => {
+const Chat = ({ messages, isStreaming }) => {
   const messageEndRef = useRef(null);
   // calc value of messageGroups using useMemo to group messages by role (assistant or user) only when messages change
   const messageGroups = useMemo(
@@ -38,7 +38,7 @@ const Chat = ({ messages }) => {
         <div key={groupIndex} className={styles.Group}>
           {messages.map(({ role, content }, messageIndex) => (
             //? MESSAGE
-            <div key={messageIndex} className={styles.Message} data-role={role}>
+            <div key={messageIndex} className={styles.Message} data-role={role} data-streaming={isStreaming && messageIndex === messages.length - 1}>
               <ReactMarkdown>{content}</ReactMarkdown>
             </div>
           ))}

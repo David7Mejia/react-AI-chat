@@ -12,7 +12,7 @@ const App = () => {
   const [isStreaming, setIsStreaming] = useState(false);
 
   const updateLastMessageContent = content => {
-    setMessage(prevMessages => prevMessages.map((message, index) => (index === prevMessages.length - 1 ? { ...message, cotent: `${message.content}${content}` } : message)));
+    setMessage(prevMessages => prevMessages.map((message, index) => (index === prevMessages.length - 1 ? { ...message, content: `${message.content}${content}` } : message)));
   };
 
   const addMessage = message => {
@@ -20,7 +20,7 @@ const App = () => {
   };
 
   async function handleContentSend(content) {
-    addMessage({ role: "user", content });
+    addMessage({ content, role: "user" });
     setIsLoading(true);
     try {
       const result = await assistant.chatStream(content);
@@ -54,7 +54,7 @@ const App = () => {
         <h2 className={styles.Title}>AI Chatbot</h2>
       </header>
       <div className={styles.ChatContainer}>
-        <Chat messages={messages} />
+        <Chat messages={messages} isStreaming={isStreaming} />
       </div>
       <Controls isDisabled={isLoading || isStreaming} onSend={handleContentSend} />
     </div>
