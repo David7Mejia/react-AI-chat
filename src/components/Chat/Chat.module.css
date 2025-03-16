@@ -7,6 +7,20 @@
   overflow-y: auto;
 }
 
+.Group
+/* .WelcomeMessage */ {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+/* .WelcomeMessage {
+  height: fit-content;
+} */
+.Group:nth-last-of-type(2) {
+  /* min-height: calc(100% - 8px); */
+  height: fit-content;
+}
+
 .Message {
   width: fit-content;
   max-width: 90%;
@@ -14,13 +28,17 @@
   font-size: 14px;
   border-radius: 1rem 0.5rem;
   /* background: #32c0c1; */
-  background: #344950;
-  color: #fff;
+  /* background: #263b42; */
+  background: transparent;
+  /* color: #fff; */
+  color: #444444;
+  border: 1px black solid;
   &[data-role="user"] {
     border-radius: 1rem;
     align-self: flex-end;
     background: #f3f3f3;
     border-radius: 0.5rem 1rem;
+    border: none;
     color: #4c4c4c;
   }
 }
