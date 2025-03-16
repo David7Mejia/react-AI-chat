@@ -25,28 +25,25 @@ const Chat = ({ messages }) => {
   );
 
   useEffect(() => {
-    messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    const lastMessage = messages[messages.length - 1];
+    if (lastMessage?.role === "user") {
+      messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
   }, [messages]);
 
   return (
     <div className={styles.Chat}>
-      {[WELCOME_MESSAGE_GROUP, ...messageGroups].map(
-        (messages, groupIndex) => (
-          //? GROUP
-          <div key={groupIndex} className={styles.Group}>
-            {messages.map(({ role, content }, messageIndex) => (
-              //? MESSAGE
-              <div key={messageIndex} className={styles.Message} data-role={role}>
-                <ReactMarkdown>{content}</ReactMarkdown>
-                {/* {role === "assistant" ? <ReactMarkdown>{content}</ReactMarkdown> : content} */}
-              </div>
-            ))}
-          </div>
-        )
-
-        // {[WELCOME_MESSAGE_GROUP, ...messages].map(({ role, content }, i) => (
-        // ))}
-      )}
+      {[WELCOME_MESSAGE_GROUP, ...messageGroups].map((messages, groupIndex) => (
+        //? GROUP
+        <div key={groupIndex} className={styles.Group}>
+          {messages.map(({ role, content }, messageIndex) => (
+            //? MESSAGE
+            <div key={messageIndex} className={styles.Message} data-role={role}>
+              <ReactMarkdown>{content}</ReactMarkdown>
+            </div>
+          ))}
+        </div>
+      ))}
       <div className="end-ref" ref={messageEndRef}></div>
     </div>
   );

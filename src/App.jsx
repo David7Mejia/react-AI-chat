@@ -9,24 +9,43 @@ const App = () => {
   const assistant = new Assistant();
   const [messages, setMessage] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isStreaming, setIsStreaming] = useState(false);
+
+  const updateLastMessageContent = content => {
+    setMessage(prevMessages => prevMessages.map((message, index) => (index === prevMessages.length - 1 ? { ...message, cotent: `${message.content}${content}` } : message)));
+  };
 
   const addMessage = message => {
     setMessage(prevMessages => [...prevMessages, message]);
   };
 
-  const handleContentSend = async content => {
+  async function handleContentSend(content) {
     addMessage({ role: "user", content });
     setIsLoading(true);
     try {
-      const result = await assistant.chat(content);
-      addMessage({ role: "assistant", content: result });
-    } catch (err) {
-      console.log(err);
+      const result = await assistant.chatStream(content);
+      let isFirstChunk = false;
+      // addMessage({ role: "assistant", content: result });
+      for await (const chunk of result) {
+        if (!isFirstChunk) {
+          isFirstChunk = true;
+          addMessage({ content: "", role: "assistant" });
+          setIsLoading(false);
+          setIsStreaming(true);
+        }
+        updateLastMessageContent(chunk);
+      }
+      setIsStreaming(false);
+    } catch (error) {
+      console.log(error);
       addMessage({ content: "Sorry, I couldn't process your request. Please try again.", role: "system" });
-    } finally {
       setIsLoading(false);
+      setIsStreaming(false);
     }
-  };
+    // finally {
+    //   setIsLoading(false);
+    // }
+  }
   return (
     <div className={styles.App}>
       {isLoading && <Loader />}
@@ -37,7 +56,7 @@ const App = () => {
       <div className={styles.ChatContainer}>
         <Chat messages={messages} />
       </div>
-      <Controls isDisabled={isLoading} onSend={handleContentSend} />
+      <Controls isDisabled={isLoading || isStreaming} onSend={handleContentSend} />
     </div>
   );
 };

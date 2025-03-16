@@ -17,4 +17,16 @@ export class Assistant {
       throw error;
     }
   }
+
+  async *chatStream(content) {
+    try {
+      const res = await this.#chat.sendMessageStream(content);
+
+      for await (const chunk of res.stream) {
+        yield chunk.text();
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
 }
