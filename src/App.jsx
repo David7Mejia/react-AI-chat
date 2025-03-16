@@ -37,7 +37,7 @@ const App = () => {
       <div className={styles.ChatContainer}>
         <Chat messages={messages} />
       </div>
-      <Controls onSend={handleContentSend} />
+      <Controls isDisabled={isLoading} onSend={handleContentSend} />
     </div>
   );
 };

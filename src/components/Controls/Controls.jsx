@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "./Controls.module.css";
 import TextareaAutosize from "react-textarea-autosize";
 
-const Controls = ({ onSend }) => {
+const Controls = ({ isDisabled = false, onSend }) => {
   const [content, setContent] = useState("");
 
   const handleContentChange = e => {
@@ -34,15 +34,17 @@ const Controls = ({ onSend }) => {
     <div className={styles.Controls}>
       <div className={styles.TextAreaContainer}>
         <TextareaAutosize
-         className={styles.TextArea}
-         placeholder="Message AI"
-         value={content}
-         onChange={handleContentChange}
-         onKeyDown={handleKeyDown}
-         minRows={2}
-         maxRows={20} />
+          className={styles.TextArea}
+          placeholder="Message AI"
+          value={content}
+          disabled={isDisabled}
+          onChange={handleContentChange}
+          onKeyDown={handleKeyDown}
+          minRows={2}
+          maxRows={20}
+        />
       </div>
-      <button className={styles.Button} onClick={handleContentSend}>
+      <button disabled={isDisabled} className={styles.Button} onClick={handleContentSend}>
         <div className={styles.SVG}></div>
       </button>
     </div>
