@@ -10,6 +10,7 @@ const App = () => {
   const [messages, setMessage] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isStreaming, setIsStreaming] = useState(false);
+  const [model, setModel] = useState("gemini");
 
   const updateLastMessageContent = content => {
     setMessage(prevMessages => prevMessages.map((message, index) => (index === prevMessages.length - 1 ? { ...message, content: `${message.content}${content}` } : message)));
@@ -19,13 +20,16 @@ const App = () => {
     setMessage(prevMessages => [...prevMessages, message]);
   };
 
+  const handleModelChange = event => {
+    setModel(event.target.value);
+  };
+
   async function handleContentSend(content) {
     addMessage({ content, role: "user" });
     setIsLoading(true);
     try {
       const result = await assistant.chatStream(content);
       let isFirstChunk = false;
-      // addMessage({ role: "assistant", content: result });
       for await (const chunk of result) {
         if (!isFirstChunk) {
           isFirstChunk = true;
@@ -42,9 +46,6 @@ const App = () => {
       setIsLoading(false);
       setIsStreaming(false);
     }
-    // finally {
-    //   setIsLoading(false);
-    // }
   }
   return (
     <div className={styles.App}>
@@ -53,6 +54,16 @@ const App = () => {
         <img src="/neural-network.png" alt="logo" className={styles.Logo} />
         <h2 className={styles.Title}>AI Chatbot</h2>
       </header>
+      <div className={styles.ModelContainer}>
+        <div className={styles.Model}>
+          Choose Model:&nbsp;
+        </div>
+        <select className="select-model" value={model} onChange={handleModelChange}>
+          <option value="gpt-4o-mini">GPT-4o Mini</option>
+          <option value="gemini">Gemini</option>
+        </select>
+      </div>
+      {console.log(model)}
       <div className={styles.ChatContainer}>
         <Chat messages={messages} isStreaming={isStreaming} />
       </div>

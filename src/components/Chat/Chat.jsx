@@ -5,7 +5,7 @@ import ReactMarkdown from "react-markdown";
 const WELCOME_MESSAGE_GROUP = [
   {
     role: "assistant",
-    content: "Hello! I'm Chatbot. How can I help you today?",
+    content: "Hello! I'm your AI chatbot How can I help you today?",
     // className: "WelcomeMessage",
   },
 ];
