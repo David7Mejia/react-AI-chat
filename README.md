@@ -14,3 +14,4 @@ The app connects to OpenAI API thorugh assistants and the Gemini API. The app us
 VITE_GOOGLEAI_API_KEY=your-googleai-api-key
 VITE_OPENAI_API_KEY=your-openai-api-key
 ```
+![image](https://github.com/David7Mejia/react-AI-chat/blob/main/public/React-ChatUI.PNG)
