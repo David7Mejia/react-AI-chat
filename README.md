@@ -1,8 +1,16 @@
-# React + Vite
+# Simple LLM Responsive Chat UI built on React.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The app connects to OpenAI API thorugh assistants and the Gemini API. The app uses streaming for completion. The UI handles streamed responses in React Markdown as well as smooth scrolling to allow the user to keep track of the lates message being sent or received in the UI. 
 
-Currently, two official plugins are available:
+## Test Locally 
+```git clone git@github.com:David7Mejia/react-AI-chat.git```
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Install Dependencies 
+``` npm i```
+
+## Provide API key to Gemini 1.5 Flash or OpenAI
+``` touch .env.local```
+```
+VITE_GOOGLEAI_API_KEY=your-googleai-api-key
+VITE_OPENAI_API_KEY=your-openai-api-key
+```
